@@ -24,10 +24,10 @@
 
 // Set a configurable/settings page
 var Settings = require('settings');
-var LANG = 'no';
+var LANG = 'en';
 
 try {
-	LANG = (!Settings.option('language') || Settings.option('language') === null ? 'no' : Settings.option('language') ); // if not set, set to default: no	
+	LANG = (!Settings.option('language') || Settings.option('language') === null ? 'en' : Settings.option('language') ); // if not set, set to default: no	
 } catch(err) {}
 
 Settings.config(
@@ -91,7 +91,7 @@ var TEXTS = {
 var UI = require('ui');
 
 var splashScreen = new UI.Card({
-	title: TEXTS.splashText[LANG]
+	title: TEXTS.splashText[LANG],
 });
 splashScreen.show();
 
@@ -99,6 +99,10 @@ splashScreen.show();
 navigator.geolocation.getCurrentPosition(function(pos) {
 	
 	var latlngObject = new LatLng(pos.coords.latitude, pos.coords.longitude);
+	//var latitud = pos.coords.latitude; // mio
+	var latitud = -32.997524; // mio
+	//var longitud = pos.coords.longitude; // mio
+	var longitud = -60.662161; // mio
 	var utmObject = latlngObject.toUTMRef();
 	var easting = parseInt(utmObject.easting);
 	var northing = parseInt(utmObject.northing);
@@ -106,15 +110,18 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 	var ajax = require('ajax');
 	ajax({ 
 		//url: 'http://reisapi.ruter.no/Place/GetClosestStops?coordinates=(x='+easting+',y='+nothing+')&proposals=10&maxdistance=20&json=true'
-		url: 'http://reis.ruter.no/ReisRestNational/Stop/GetClosestStopsByCoordinates/?coordinates=(x='+easting+',y='+northing+')&proposals=20', 
+		//url: 'http://reis.ruter.no/ReisRestNational/Stop/GetClosestStopsByCoordinates/?coordinates=(x='+easting+',y='+northing+')&proposals=20', 
+		url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/search?lat=' + latitud + '&lon=' + longitud,
 		type: 'json' 
 	},function(data) {
-		if(data.length > 0){
+		if(data.paradas.length > 0){
 			var dataitems = [];
-			for(var i = 0; i < data.length; i++) {
+			for(var i = 0; i < data.paradas.length; i++) {
 				dataitems.push({
-					title: data[i].Name,
-					subtitle: data[i].WalkingDistance+' ' + TEXTS.mintogo[LANG] // data[i].ID
+					//title: data[i].Name,
+					title: data.paradas[i].cod_sms,
+					subtitle: data.paradas[i].nombre,
+					//subtitle: data[i].WalkingDistance+' ' + TEXTS.mintogo[LANG] // data[i].ID
 				});
 			}
 
@@ -184,7 +191,8 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 			}); // menu selection
 
 		}else {
-			errorCard(TEXTS.errorNoStops[LANG]);
+			//errorCard(TEXTS.errorNoStops[LANG]);
+			errorCard(TEXTS.errorNoStops[LANG] + ' lat=' + latitud + ' lon=' + longitud);
 		}
 	},
 	function(error) {
