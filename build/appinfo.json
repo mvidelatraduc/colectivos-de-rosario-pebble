@@ -9,8 +9,7 @@
     "companyName": "Mauricio Videla", 
     "versionLabel": "1.0", 
     "capabilities": [
-        "location", 
-        "configurable"
+        "location"
     ], 
     "sdkVersion": "3", 
     "appKeys": {}, 
