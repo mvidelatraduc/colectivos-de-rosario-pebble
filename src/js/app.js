@@ -23,69 +23,68 @@
  */
 
 // Set a configurable/settings page
-//var Settings = require('settings');
-var LANG = 'en';
+var Settings = require('settings');
+var LANG = 'es';
 
-/*
+
 try {
-	LANG = (!Settings.option('language') || Settings.option('language') === null ? 'en' : Settings.option('language') ); // if not set, set to default: no	
+	LANG = (!Settings.option('language') || Settings.option('language') === null ? 'es' : Settings.option('language') ); // if not set, set to default: no	
 } catch(err) {}
 
 Settings.config(
-	{ url: 'https://tlimited.github.io/onthego/index.html' },
+	{ url: 'https://colectivos-de-rosario-pebble-cfg.pages.dev/index.html' },
 	function(e) {
 		// configurable opened/closed. 
 		LANG = Settings.option('language');
 		Settings.option('language', LANG);
 	}
 );
-*/
 
 
 var TEXTS = {
 	mintogo: {
 		en: 'minutes walk',
-		no: 'min å gå'
+		es: 'minutos de caminata'
 	},
 	loadingText: {
 		en: [
-			'Let\'s try..',
-			'Predicting transport..',
-			'Things Take Time..',
-			'Using Map and compass..',
-			'Patience is a virtue..'
+			'Loading...',
+			'Loading....',
+			'Loading.....',
+			'Loading......',
+			'Zzz...'
 		],
-		no: [
-			'Da prøve vi..',
-			'Vi spår framtida..',
-			'Ting Tar Tid..',
-			'Bruker kart og kompass..',
-			'Tålmodighet er en dyd..'
+		es: [
+			'Cargando...',
+			'Cargando....',
+			'Cargando.....',
+			'Cargando......',
+			'Zzz...'
 		]
 	},
 	nothingInSight:{
 		en: 'No departures',
-		no: 'Ingen avganger'
+		es: 'No hay arribos'
 	},
 	tryAgain:{
 		en: 'Go back and try again',
-		no: 'Gå tilbake og prøv igjen'
+		es: 'Volvé atrás e intentá de nuevo.'
 	},
 	errorNoStops:{
-		en: 'Couldn\t get any stops. Check your phone signal and that you\re allowing location services.',
-		no: 'Kunne ikke hente holdeplasser. Sikker på at du har dekning og tillater lokasjonstjenester?'
+		en: 'Couldn\'t get any stops. Check your phone signal and that you\'re allowing location services.',
+		es: 'No se consiguieron paradas. Revisar señal y permisos de ubicación.'
 	},
 	errorSomething:{
 		en: 'Something went wrong. Check your internet connection.',
-		no: 'Noe gikk galt. Sjekk at du har dekning.'
+		es: 'Algo salió mal. Revisar conexión a internet.'
 	},
 	errorSomething2:{
 		en: 'Something went wrong. Check your internet connection.',
-		no: 'Noe gikk galt. Sjekk at du har dekning og sånt.'
+		es: 'Algo salió mal. Revisar conexión a internet.'
 	},
 	splashText:{
 		en: 'Finding closest stops..',
-		no: 'Finner nærmeste holdeplass..'
+		es: 'Buscando paradas cercanas...'
 	}
 
 };
@@ -199,8 +198,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 			}); // menu selection
 
 		}else {
-			//errorCard(TEXTS.errorNoStops[LANG]);
-			errorCard(TEXTS.errorNoStops[LANG] + ' lat=' + latitud + ' lon=' + longitud);
+			errorCard(TEXTS.errorNoStops[LANG]);
 		}
 	},
 	function(error) {
