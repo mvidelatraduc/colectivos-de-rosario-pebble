@@ -73,6 +73,8 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 aplite/src/resource_ids.auto.c.26.o
  .data.RESOURCE_ID_MONO_FONT_14
                 0x0000000000000000        0x4 aplite/src/resource_ids.auto.c.26.o
+ .data.RESOURCE_ID_MONUMENTOCARGANDODITHER
+                0x0000000000000000        0x4 aplite/src/resource_ids.auto.c.26.o
  .data.RESOURCE_ID_IMAGE_MENU_ICON
                 0x0000000000000000        0x4 aplite/src/resource_ids.auto.c.26.o
  .data.RESOURCE_ID_IMAGES_RUTERICON28X28DITHERED_PNG
@@ -2086,7 +2088,7 @@ OUTPUT(/home/rebble/colectivos-de-rosario-pebble/build/aplite/pebble-app.elf elf
  .comment       0x0000000000000000       0x4f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivdi3.o)
  .comment       0x0000000000000000       0x4f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
 
-.debug_info     0x0000000000000000    0x162e2
+.debug_info     0x0000000000000000    0x162f4
  .debug_info    0x0000000000000000      0x256 src/main.c.26.o
  .debug_info    0x0000000000000256      0xccd src/simply/simply.c.26.o
  .debug_info    0x0000000000000f23      0xd76 src/simply/simply_accel.c.26.o
@@ -2101,13 +2103,13 @@ OUTPUT(/home/rebble/colectivos-de-rosario-pebble/build/aplite/pebble-app.elf elf
  .debug_info    0x0000000000011904     0x252c src/simply/simply_window.c.26.o
  .debug_info    0x0000000000013e30     0x105c src/simply/simply_window_stack.c.26.o
  .debug_info    0x0000000000014e8c      0x31a aplite/appinfo.auto.c.26.o
- .debug_info    0x00000000000151a6       0xc9 aplite/src/resource_ids.auto.c.26.o
- .debug_info    0x000000000001526f       0xb2 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_aeabi_ldivmod.o)
- .debug_info    0x0000000000015321      0x174 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(bpabi.o)
- .debug_info    0x0000000000015495       0xb6 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_dvmd_tls.o)
- .debug_info    0x000000000001554b      0x68f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_divdi3.o)
- .debug_info    0x0000000000015bda      0x652 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivdi3.o)
- .debug_info    0x000000000001622c       0xb6 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivsi3.o)
+ .debug_info    0x00000000000151a6       0xdb aplite/src/resource_ids.auto.c.26.o
+ .debug_info    0x0000000000015281       0xb2 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_aeabi_ldivmod.o)
+ .debug_info    0x0000000000015333      0x174 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(bpabi.o)
+ .debug_info    0x00000000000154a7       0xb6 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_dvmd_tls.o)
+ .debug_info    0x000000000001555d      0x68f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_divdi3.o)
+ .debug_info    0x0000000000015bec      0x652 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivdi3.o)
+ .debug_info    0x000000000001623e       0xb6 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivsi3.o)
 
 .debug_abbrev   0x0000000000000000     0x34ba
  .debug_abbrev  0x0000000000000000      0x14d src/main.c.26.o
@@ -2232,7 +2234,7 @@ OUTPUT(/home/rebble/colectivos-de-rosario-pebble/build/aplite/pebble-app.elf elf
  .debug_line    0x0000000000003a40       0xd8 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivdi3.o)
  .debug_line    0x0000000000003b18       0x90 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivsi3.o)
 
-.debug_str      0x0000000000000000     0x4fee
+.debug_str      0x0000000000000000     0x5012
  .debug_str     0x0000000000000000      0x196 src/main.c.26.o
                                         0x1d5 (size before relaxing)
  .debug_str     0x0000000000000196      0x4f6 src/simply/simply.c.26.o
@@ -2261,11 +2263,11 @@ OUTPUT(/home/rebble/colectivos-de-rosario-pebble/build/aplite/pebble-app.elf elf
                                         0xb83 (size before relaxing)
  .debug_str     0x0000000000004b6e      0x222 aplite/appinfo.auto.c.26.o
                                         0x31e (size before relaxing)
- .debug_str     0x0000000000004d90       0xbe aplite/src/resource_ids.auto.c.26.o
-                                        0x187 (size before relaxing)
- .debug_str     0x0000000000004e4e       0xda /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(bpabi.o)
+ .debug_str     0x0000000000004d90       0xe2 aplite/src/resource_ids.auto.c.26.o
+                                        0x1ab (size before relaxing)
+ .debug_str     0x0000000000004e72       0xda /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(bpabi.o)
                                         0x10b (size before relaxing)
- .debug_str     0x0000000000004f28       0xc6 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_divdi3.o)
+ .debug_str     0x0000000000004f4c       0xc6 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_divdi3.o)
                                         0x1d8 (size before relaxing)
  .debug_str     0x0000000000000000      0x1d9 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a(_udivdi3.o)
 

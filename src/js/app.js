@@ -64,7 +64,7 @@ var TEXTS = {
 	},
 	nothingInSight:{
 		en: 'No departures',
-		es: 'No hay arribos'
+		es: 'No hay arribos.'
 	},
 	tryAgain:{
 		en: 'Go back and try again',
@@ -83,17 +83,30 @@ var TEXTS = {
 		es: 'Algo salió mal. Revisar conexión a internet.'
 	},
 	splashText:{
-		en: 'Finding closest stops..',
+		en: 'Finding closest stops...',
 		es: 'Buscando paradas cercanas...'
 	}
 
 };
 
 var UI = require('ui');
+var Vector2 = require('vector2');
 
+/*
 var splashScreen = new UI.Card({
-	title: TEXTS.splashText[LANG],
+	//body: TEXTS.splashText[LANG]
 });
+splashScreen.banner('MONUMENTOCARGANDODITHER');
+splashScreen.show();
+*/
+
+var splashScreen = new UI.Window({ fullscreen: true });
+var imagenmonumentocargando = new UI.Image({
+  position: new Vector2(0, 0),
+  size: new Vector2(144, 168),
+  image: 'MONUMENTOCARGANDODITHER'
+});
+splashScreen.add(imagenmonumentocargando);
 splashScreen.show();
 
 navigator.geolocation.getCurrentPosition(function(pos) {
@@ -211,7 +224,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 // run this on errors
 function errorCard(errmsg){
 	var card = new UI.Card({
-		title: 'Æsj',
+		title: ':c',
 		body: (errmsg ? errmsg : TEXTS.errorSomething2[LANG])
 	});
 	card.show();
