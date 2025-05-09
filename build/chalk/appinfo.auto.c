@@ -11,7 +11,7 @@ const PebbleProcessInfo __pbl_app_info __attribute__ ((section (".pbl_header")))
   .crc = 0xb6b6b6b6,
   .name = "Colectivos",
   .company = "Mauricio Videla",
-  .icon_resource_id = RESOURCE_ID_IMAGES_RUTERICON28X28DITHERED_PNG,
+  .icon_resource_id = RESOURCE_ID_ICONOCOLECTIVO25PX,
   .sym_table_addr = 0xA7A7A7A7,
   .flags = PROCESS_INFO_PLATFORM_CHALK,
   .num_reloc_entries = 0xdeadcafe,

@@ -2,8 +2,11 @@
     "targetPlatforms": [
         "aplite", 
         "basalt", 
-        "chalk"
+        "chalk", 
+        "diorite", 
+        "emery"
     ], 
+    "displayName": "Colectivos de Rosario", 
     "uuid": "f11a88f6-dcdd-43f7-9f37-8fec0f29857d", 
     "messageKeys": {}, 
     "companyName": "Mauricio Videla", 
@@ -14,7 +17,7 @@
     ], 
     "sdkVersion": "3", 
     "appKeys": {}, 
-    "longName": "Colectivos Rosario", 
+    "longName": "Colectivos de Rosario", 
     "versionCode": 1, 
     "shortName": "Colectivos", 
     "watchapp": {
@@ -23,11 +26,6 @@
     }, 
     "resources": {
         "media": [
-            {
-                "type": "png", 
-                "name": "MONUMENTOCARGANDODITHER", 
-                "file": "images/monumentocargandodither.png"
-            }, 
             {
                 "type": "bitmap", 
                 "name": "IMAGE_MENU_ICON", 
@@ -49,10 +47,15 @@
                 "file": "fonts/UbuntuMono-Regular.ttf"
             }, 
             {
+                "type": "png", 
+                "name": "MONUMENTOCARGANDODITHER", 
+                "file": "images/monumentocargandodither.png"
+            }, 
+            {
                 "menuIcon": true, 
-                "type": "bitmap", 
-                "name": "IMAGES_RUTERICON28X28DITHERED_PNG", 
-                "file": "images/rutericon28x28dithered.png"
+                "type": "png", 
+                "name": "ICONOCOLECTIVO25PX", 
+                "file": "images/iconocolectivo25px.png"
             }
         ]
     }

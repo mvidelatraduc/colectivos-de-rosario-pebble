@@ -10286,14 +10286,10 @@ module.exports = {
     "configurable"
   ],
   "companyName": "Mauricio Videla",
-  "longName": "Colectivos Rosario",
+  "displayName": "Colectivos de Rosario",
+  "longName": "Colectivos de Rosario",
   "resources": {
     "media": [
-      {
-        "file": "images/monumentocargandodither.png",
-        "name": "MONUMENTOCARGANDODITHER",
-        "type": "png"
-      },
       {
         "file": "images/menu_icon.png",
         "name": "IMAGE_MENU_ICON",
@@ -10315,10 +10311,15 @@ module.exports = {
         "type": "font"
       },
       {
-        "file": "images/rutericon28x28dithered.png",
+        "file": "images/monumentocargandodither.png",
+        "name": "MONUMENTOCARGANDODITHER",
+        "type": "png"
+      },
+      {
+        "file": "images/iconocolectivo25px.png",
         "menuIcon": true,
-        "name": "IMAGES_RUTERICON28X28DITHERED_PNG",
-        "type": "bitmap"
+        "name": "ICONOCOLECTIVO25PX",
+        "type": "png"
       }
     ]
   },
@@ -10327,7 +10328,9 @@ module.exports = {
   "targetPlatforms": [
     "aplite",
     "basalt",
-    "chalk"
+    "chalk",
+    "diorite",
+    "emery"
   ],
   "uuid": "f11a88f6-dcdd-43f7-9f37-8fec0f29857d",
   "versionCode": 1,
