@@ -163,23 +163,23 @@ var TEXTS = {
 			'Loading....',
 			'Loading.....',
 			'Loading......',
-			'Zzz...'
+			'Slow network possibly'
 		],
 		es: [
 			'Cargando...',
 			'Cargando....',
 			'Cargando.....',
 			'Cargando......',
-			'Zzz...'
+			'Posible red lenta'
 		]
 	},
 	nothingInSight:{
 		en: 'No departures',
-		es: 'No hay arribos.'
+		es: 'No hay arribos'
 	},
 	tryAgain:{
 		en: 'Go back and try again',
-		es: 'Volvé atrás e intentá de nuevo.'
+		es: 'Intentá de nuevo'
 	},
 	errorNoStops:{
 		en: 'Couldn\'t get any stops. Check your phone signal and that you\'re allowing location services.',
@@ -266,12 +266,12 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				ajax({ 
 					//url: 'https://reisapi.ruter.no/StopVisit/GetDepartures/'+id+'?transporttypes=bus,Train,Boat,Metro,Tram', 
 					url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/' + data.paradas[e.itemIndex].cod_sms + '/arribos',
+					//url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/1000/arribos',
 					type: 'json' 
 				},function(data) {
 					menuitemLoading(menu, e);
 
 					if(data.arribos.length > 0){
-
 						var dataitems = [];
 						var limitResults = data.arribos.length;
 						if(limitResults > 50) {
@@ -301,19 +301,20 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 								subtitle: data.arribos[i].tiempoRestanteArribo
 							});
 						}
+						var singular_arribo = (limitResults == 1) ? '' : 'S';
 						var menu2 = new UI.Menu({
-							sections: [{ title: cod_sms_elegido + ': ' + data.arribos.length + ' ARRIBOS', items: dataitems	}]
+							sections: [{ title: cod_sms_elegido + ': ' + data.arribos.length + ' ARRIBO' + singular_arribo, items: dataitems	}]
 						});
 						menu2.show();
 						
 					}else{
 						//console.log('Did not get any ');
 						var failMenu = new UI.Menu({
-							sections: [{ 
-								items: {
+							sections: [{ title: cod_sms_elegido + ': 0 ARRIBOS',
+								items: [{
 									title: TEXTS.nothingInSight[LANG],
 									subtitle: TEXTS.tryAgain[LANG]
-								}
+								}]
 							}]
 						});
 						failMenu.show();
@@ -391,7 +392,7 @@ function pad(n) { return ("0" + n).slice(-2); }
 function LatLng(t,a){this.lat=t,this.lng=a,this.distance=LatLngDistance,this.toOSRef=LatLngToOSRef,this.toUTMRef=LatLngToUTMRef,this.WGS84ToOSGB36=WGS84ToOSGB36,this.OSGB36ToWGS84=OSGB36ToWGS84,this.toString=LatLngToString}function LatLngToString(){return"("+this.lat+", "+this.lng+")"}function OSRef(t,a){this.easting=t,this.northing=a,this.toLatLng=OSRefToLatLng,this.toString=OSRefToString,this.toSixFigureString=OSRefToSixFigureString}function OSRefToString(){return"("+this.easting+", "+this.northing+")"}function OSRefToSixFigureString(){var t=Math.floor(this.easting/1e5),a=Math.floor(this.northing/1e5),n="";n=5>a?5>t?"S":"T":10>a?5>t?"N":"O":"H";var e="",h=65+5*(4-a%5)+t%5;h>=73&&h++,e=chr(h);var r=Math.floor((this.easting-1e5*t)/100),i=Math.floor((this.northing-1e5*a)/100),s=r;100>r&&(s="0"+s),10>r&&(s="0"+s);var o=i;return 100>i&&(o="0"+o),10>i&&(o="0"+o),n+e+s+o}function UTMRef(t,a,n,e){this.easting=t,this.northing=a,this.latZone=n,this.lngZone=e,this.toLatLng=UTMRefToLatLng,this.toString=UTMRefToString}function UTMRefToString(){return this.lngZone+this.latZone+" "+this.easting+" "+this.northing}function RefEll(t,a){this.maj=t,this.min=a,this.ecc=(t*t-a*a)/(t*t)}function sinSquared(t){return Math.sin(t)*Math.sin(t)}function cosSquared(t){return Math.cos(t)*Math.cos(t)}function tanSquared(t){return Math.tan(t)*Math.tan(t)}function sec(t){return 1/Math.cos(t)}function deg2rad(t){return t*(Math.PI/180)}function rad2deg(t){return t*(180/Math.PI)}function chr(t){var a=t.toString(16);return 1==a.length&&(a="0"+a),a="%"+a,unescape(a)}function ord(t){var a,n=t.charAt(0);for(a=0;256>a;++a){var e=a.toString(16);if(1==e.length&&(e="0"+e),e="%"+e,e=unescape(e),e==n)break}return a}function LatLngDistance(t){var a=6366.707,n=deg2rad(this.lat),e=deg2rad(t.lat),h=deg2rad(this.lng),r=deg2rad(t.lng),i=a*Math.cos(h)*Math.sin(n),s=a*Math.sin(h)*Math.sin(n),o=a*Math.cos(n),M=a*Math.cos(r)*Math.sin(e),g=a*Math.sin(r)*Math.sin(e),d=a*Math.cos(e),u=Math.sqrt((i-M)*(i-M)+(s-g)*(s-g)+(o-d)*(o-d));return u}function OSGB36ToWGS84(){var t=new RefEll(6377563.396,6356256.909),a=t.maj,n=t.min,e=t.ecc,h=deg2rad(this.lat),r=deg2rad(this.lng),i=a/Math.sqrt(1-e*sinSquared(h)),s=0,o=(i+s)*Math.cos(h)*Math.cos(r),M=(i+s)*Math.cos(h)*Math.sin(r),g=((1-e)*i+s)*Math.sin(h),d=446.448,u=-124.157,c=542.06,S=-204894e-10,f=deg2rad(4172222e-11),l=deg2rad(6861111e-11),w=deg2rad(.00023391666),p=d+o*(1+S)+-f*M+l*g,q=u+w*o+M*(1+S)+-f*g,L=c+-l*o+f*M+g*(1+S),T=new RefEll(6378137,6356752.3141);a=T.maj,n=T.min,e=T.ecc;for(var R=rad2deg(Math.atan(q/p)),v=Math.sqrt(p*p+q*q),m=Math.atan(L/(v*(1-e))),O=1;10>O;O++)i=a/Math.sqrt(1-e*sinSquared(m)),phiN1=Math.atan((L+e*i*Math.sin(m))/v),m=phiN1;var G=rad2deg(m);this.lat=G,this.lng=R}function WGS84ToOSGB36(){var t=new RefEll(6378137,6356752.3141),a=t.maj,n=t.min,e=t.ecc,h=deg2rad(this.lat),r=deg2rad(this.lng),i=a/Math.sqrt(1-e*sinSquared(h)),s=0,o=(i+s)*Math.cos(h)*Math.cos(r),M=(i+s)*Math.cos(h)*Math.sin(r),g=((1-e)*i+s)*Math.sin(h),d=-446.448,u=124.157,c=-542.06,S=204894e-10,f=deg2rad(-4172222e-11),l=deg2rad(-6861111e-11),w=deg2rad(-.00023391666),p=d+o*(1+S)+-f*M+l*g,q=u+w*o+M*(1+S)+-f*g,L=c+-l*o+f*M+g*(1+S),T=new RefEll(6377563.396,6356256.909);a=T.maj,n=T.min,e=T.ecc;for(var R=rad2deg(Math.atan(q/p)),v=Math.sqrt(p*p+q*q),m=Math.atan(L/(v*(1-e))),O=1;10>O;O++)i=a/Math.sqrt(1-e*sinSquared(m)),phiN1=Math.atan((L+e*i*Math.sin(m))/v),m=phiN1;var G=rad2deg(m);this.lat=G,this.lng=R}function OSRefToLatLng(){var t=new RefEll(6377563.396,6356256.909),a=.9996012717,n=-1e5,e=4e5,h=deg2rad(49),r=deg2rad(-2),i=t.maj,s=t.min,o=t.ecc,M=0,g=0,d=this.easting,u=this.northing,c=(i-s)/(i+s),S=0,f=(u-n)/(i*a)+h;do S=s*a*((1+c+5/4*c*c+5/4*c*c*c)*(f-h)-(3*c+3*c*c+21/8*c*c*c)*Math.sin(f-h)*Math.cos(f+h)+(15/8*c*c+15/8*c*c*c)*Math.sin(2*(f-h))*Math.cos(2*(f+h))-35/24*c*c*c*Math.sin(3*(f-h))*Math.cos(3*(f+h))),f+=(u-n-S)/(i*a);while(u-n-S>=.001);var l=i*a*Math.pow(1-o*sinSquared(f),-.5),w=i*a*(1-o)*Math.pow(1-o*sinSquared(f),-1.5),p=l/w-1,q=Math.tan(f)/(2*w*l),L=Math.tan(f)/(24*w*Math.pow(l,3))*(5+3*tanSquared(f)+p-9*tanSquared(f)*p),T=Math.tan(f)/(720*w*Math.pow(l,5))*(61+90*tanSquared(f)+45*tanSquared(f)*tanSquared(f)),R=sec(f)/l,v=sec(f)/(6*l*l*l)*(l/w+2*tanSquared(f)),m=sec(f)/(120*Math.pow(l,5))*(5+28*tanSquared(f)+24*tanSquared(f)*tanSquared(f)),O=sec(f)/(5040*Math.pow(l,7))*(61+662*tanSquared(f)+1320*tanSquared(f)*tanSquared(f)+720*tanSquared(f)*tanSquared(f)*tanSquared(f));return M=f-q*Math.pow(d-e,2)+L*Math.pow(d-e,4)-T*Math.pow(d-e,6),g=r+R*(d-e)-v*Math.pow(d-e,3)+m*Math.pow(d-e,5)-O*Math.pow(d-e,7),new LatLng(rad2deg(M),rad2deg(g))}function LatLngToOSRef(){var t=new RefEll(6377563.396,6356256.909),a=.9996012717,n=-1e5,e=4e5,h=deg2rad(49),r=deg2rad(-2),i=t.maj,s=t.min,o=t.ecc,M=deg2rad(this.lat),g=deg2rad(this.lng),d=0,u=0,c=(i-s)/(i+s),S=i*a*Math.pow(1-o*sinSquared(M),-.5),f=i*a*(1-o)*Math.pow(1-o*sinSquared(M),-1.5),l=S/f-1,w=s*a*((1+c+5/4*c*c+5/4*c*c*c)*(M-h)-(3*c+3*c*c+21/8*c*c*c)*Math.sin(M-h)*Math.cos(M+h)+(15/8*c*c+15/8*c*c*c)*Math.sin(2*(M-h))*Math.cos(2*(M+h))-35/24*c*c*c*Math.sin(3*(M-h))*Math.cos(3*(M+h))),p=w+n,q=S/2*Math.sin(M)*Math.cos(M),L=S/24*Math.sin(M)*Math.pow(Math.cos(M),3)*(5-tanSquared(M)+9*l),T=S/720*Math.sin(M)*Math.pow(Math.cos(M),5)*(61-58*tanSquared(M)+Math.pow(Math.tan(M),4)),R=S*Math.cos(M),v=S/6*Math.pow(Math.cos(M),3)*(S/f-tanSquared(M)),m=S/120*Math.pow(Math.cos(M),5)*(5-18*tanSquared(M)+Math.pow(Math.tan(M),4)+14*l-58*tanSquared(M)*l);return u=p+q*Math.pow(g-r,2)+L*Math.pow(g-r,4)+T*Math.pow(g-r,6),d=e+R*(g-r)+v*Math.pow(g-r,3)+m*Math.pow(g-r,5),new OSRef(d,u)}function UTMRefToLatLng(){var t=new RefEll(6378137,6356752.314),a=.9996,n=t.maj,e=t.ecc,h=e/(1-e),r=(1-Math.sqrt(1-e))/(1+Math.sqrt(1-e)),i=this.easting-5e5,s=this.northing,o=this.lngZone,M=this.latZone,g=6*(o-1)-180+3;ord(M)-ord("N")<0&&(s-=1e7);var d=s/a,u=d/(n*(1-e/4-3*e*e/64-5*Math.pow(e,3)/256)),c=u+(3*r/2-27*Math.pow(r,3)/32)*Math.sin(2*u)+(21*r*r/16-55*Math.pow(r,4)/32)*Math.sin(4*u)+151*Math.pow(r,3)/96*Math.sin(6*u),S=n/Math.sqrt(1-e*Math.sin(c)*Math.sin(c)),f=Math.tan(c)*Math.tan(c),l=h*Math.cos(c)*Math.cos(c),w=n*(1-e)/Math.pow(1-e*Math.sin(c)*Math.sin(c),1.5),p=i/(S*a),q=(c-S*Math.tan(c)/w*(p*p/2-(5+3*f+10*l-4*l*l-9*h)*Math.pow(p,4)/24+(61+90*f+298*l+45*f*f-252*h-3*l*l)*Math.pow(p,6)/720))*(180/Math.PI),L=g+(p-(1+2*f+l)*Math.pow(p,3)/6+(5-2*l+28*f-3*l*l+8*h+24*f*f)*Math.pow(p,5)/120)/Math.cos(c)*(180/Math.PI);return new LatLng(q,L)}function LatLngToUTMRef(){var t=new RefEll(6378137,6356752.314),a=.9996,n=t.maj,e=t.ecc,h=this.lng,r=this.lat,i=r*(Math.PI/180),s=h*(Math.PI/180),o=Math.floor((h+180)/6)+1;r>=56&&64>r&&h>=3&&12>h&&(o=32),r>=72&&84>r&&(h>=0&&9>h?o=31:h>=9&&21>h?o=33:h>=21&&33>h?o=35:h>=33&&42>h&&(o=37));var M=6*(o-1)-180+3,g=M*(Math.PI/180),d=getUTMLatitudeZoneLetter(r);ePrimeSquared=e/(1-e);var u=n/Math.sqrt(1-e*Math.sin(i)*Math.sin(i)),c=Math.tan(i)*Math.tan(i),S=ePrimeSquared*Math.cos(i)*Math.cos(i),f=Math.cos(i)*(s-g),l=n*((1-e/4-3*e*e/64-5*e*e*e/256)*i-(3*e/8+3*e*e/32+45*e*e*e/1024)*Math.sin(2*i)+(15*e*e/256+45*e*e*e/1024)*Math.sin(4*i)-35*e*e*e/3072*Math.sin(6*i)),w=a*u*(f+(1-c+S)*Math.pow(f,3)/6+(5-18*c+c*c+72*S-58*ePrimeSquared)*Math.pow(f,5)/120)+5e5,p=a*(l+u*Math.tan(i)*(f*f/2+(5-c+9*S+4*S*S)*Math.pow(f,4)/24+(61-58*c+c*c+600*S-330*ePrimeSquared)*Math.pow(f,6)/720));return 0>r&&(p+=1e7),new UTMRef(w,p,d,o)}function getOSRefFromSixFigureReference(t){var a=t.substring(0,1),n=t.substring(1,2),e=100*parseInt(t.substring(2,5),10),h=100*parseInt(t.substring(5,8),10);"H"==a?h+=1e6:"N"==a?h+=5e5:"O"==a?(h+=5e5,e+=5e5):"T"==a&&(e+=5e5);var r=ord(n);r>73&&r--;var i=(r-65)%5*1e5,s=1e5*(4-Math.floor((r-65)/5));return new OSRef(e+i,h+s)}function getUTMLatitudeZoneLetter(t){return 84>=t&&t>=72?"X":72>t&&t>=64?"W":64>t&&t>=56?"V":56>t&&t>=48?"U":48>t&&t>=40?"T":40>t&&t>=32?"S":32>t&&t>=24?"R":24>t&&t>=16?"Q":16>t&&t>=8?"P":8>t&&t>=0?"N":0>t&&t>=-8?"M":-8>t&&t>=-16?"L":-16>t&&t>=-24?"K":-24>t&&t>=-32?"J":-32>t&&t>=-40?"H":-40>t&&t>=-48?"G":-48>t&&t>=-56?"F":-56>t&&t>=-64?"E":-64>t&&t>=-72?"D":-72>t&&t>=-80?"C":"Z"}
 */
 });
-__loader.define("clock/clock.js", 394, function(exports, module, require) {
+__loader.define("clock/clock.js", 395, function(exports, module, require) {
 var moment = require('vendor/moment');
 
 var Clock = module.exports;
@@ -406,13 +407,13 @@ Clock.weekday = function(weekday, hour, minute, seconds) {
 };
 
 });
-__loader.define("clock/index.js", 409, function(exports, module, require) {
+__loader.define("clock/index.js", 410, function(exports, module, require) {
 var Clock = require('./clock');
 
 module.exports = Clock;
 
 });
-__loader.define("lib/ajax.js", 415, function(exports, module, require) {
+__loader.define("lib/ajax.js", 416, function(exports, module, require) {
 /*
  * ajax.js by Meiguro - MIT License
  */
@@ -550,7 +551,7 @@ return ajax;
 })();
 
 });
-__loader.define("lib/color.js", 553, function(exports, module, require) {
+__loader.define("lib/color.js", 554, function(exports, module, require) {
 var Color = {};
 
 Color.normalizeString = function(color) {
@@ -602,7 +603,7 @@ Color.toRgbUint8 = function(color) {
 module.exports = Color;
 
 });
-__loader.define("lib/emitter.js", 605, function(exports, module, require) {
+__loader.define("lib/emitter.js", 606, function(exports, module, require) {
 
 var Emitter = function() {
   this._events = {};
@@ -759,7 +760,7 @@ Emitter.prototype.emit = function(type, subtype, e) {
 module.exports = Emitter;
 
 });
-__loader.define("lib/image.js", 762, function(exports, module, require) {
+__loader.define("lib/image.js", 763, function(exports, module, require) {
 var PNG = require('vendor/png');
 
 var PNGEncoder = require('lib/png-encoder');
@@ -1061,7 +1062,7 @@ image.load = function(img, bitdepth, callback) {
 module.exports = image;
 
 });
-__loader.define("lib/myutil.js", 1064, function(exports, module, require) {
+__loader.define("lib/myutil.js", 1065, function(exports, module, require) {
 var util2 = require('util2');
 
 var myutil = {};
@@ -1150,7 +1151,7 @@ myutil.toCConstantName = function(x) {
 module.exports = myutil;
 
 });
-__loader.define("lib/png-encoder.js", 1153, function(exports, module, require) {
+__loader.define("lib/png-encoder.js", 1154, function(exports, module, require) {
 /**
  * PNG Encoder from data-demo
  * https://code.google.com/p/data-demo/
@@ -1532,7 +1533,7 @@ if (typeof module !== 'undefined') {
 }
 
 });
-__loader.define("lib/safe.js", 1535, function(exports, module, require) {
+__loader.define("lib/safe.js", 1536, function(exports, module, require) {
 /* safe.js - Building a safer world for Pebble.JS Developers
  *
  * This library provides wrapper around all the asynchronous handlers that developers
@@ -1749,7 +1750,7 @@ if (ajax) {
 module.exports = safe;
 
 });
-__loader.define("lib/struct.js", 1752, function(exports, module, require) {
+__loader.define("lib/struct.js", 1753, function(exports, module, require) {
 /**
  * struct.js - chainable ArrayBuffer DataView wrapper
  *
@@ -2011,7 +2012,7 @@ module.exports = struct;
 
 
 });
-__loader.define("lib/util2.js", 2014, function(exports, module, require) {
+__loader.define("lib/util2.js", 2015, function(exports, module, require) {
 /*
  * util2.js by Meiguro - MIT License
  */
@@ -2121,7 +2122,7 @@ return util2;
 })();
 
 });
-__loader.define("lib/vector2.js", 2124, function(exports, module, require) {
+__loader.define("lib/vector2.js", 2125, function(exports, module, require) {
 /**
  * Vector2 from three.js
  * https://github.com/mrdoob/three.js
@@ -2298,7 +2299,7 @@ if (typeof module !== 'undefined') {
 }
 
 });
-__loader.define("main.js", 2301, function(exports, module, require) {
+__loader.define("main.js", 2302, function(exports, module, require) {
 /*
  * This is the main PebbleJS file. You do not need to modify this file unless
  * you want to change the way PebbleJS starts, the script it runs or the libraries
@@ -2343,7 +2344,7 @@ Pebble.addEventListener('ready', function(e) {
 });
 
 });
-__loader.define("platform/feature.js", 2346, function(exports, module, require) {
+__loader.define("platform/feature.js", 2347, function(exports, module, require) {
 var Vector2 = require('vector2');
 var Platform = require('platform');
 
@@ -2423,13 +2424,13 @@ Feature.statusBarHeight = function() {
 };
 
 });
-__loader.define("platform/index.js", 2426, function(exports, module, require) {
+__loader.define("platform/index.js", 2427, function(exports, module, require) {
 var Platform = require('./platform');
 
 module.exports = Platform;
 
 });
-__loader.define("platform/platform.js", 2432, function(exports, module, require) {
+__loader.define("platform/platform.js", 2433, function(exports, module, require) {
 var Platform = module.exports;
 
 Platform.version = function() {
@@ -2441,7 +2442,7 @@ Platform.version = function() {
 };
 
 });
-__loader.define("settings/index.js", 2444, function(exports, module, require) {
+__loader.define("settings/index.js", 2445, function(exports, module, require) {
 var Settings = require('./settings');
 
 Settings.init();
@@ -2449,7 +2450,7 @@ Settings.init();
 module.exports = Settings;
 
 });
-__loader.define("settings/settings.js", 2452, function(exports, module, require) {
+__loader.define("settings/settings.js", 2453, function(exports, module, require) {
 var util2 = require('lib/util2');
 var myutil = require('lib/myutil');
 var safe = require('lib/safe');
@@ -2668,7 +2669,7 @@ Settings.onCloseConfig = function(e) {
 };
 
 });
-__loader.define("simply/simply.js", 2671, function(exports, module, require) {
+__loader.define("simply/simply.js", 2672, function(exports, module, require) {
 /**
  * Simply.js
  *
@@ -2709,7 +2710,7 @@ simply.vibe = function(type) {
 module.exports = simply;
 
 });
-__loader.define("smartpackage/package-pebble.js", 2712, function(exports, module, require) {
+__loader.define("smartpackage/package-pebble.js", 2713, function(exports, module, require) {
 var myutil = require('myutil');
 var package = require('smartpackage/package');
 var simply = require('simply/simply');
@@ -2813,7 +2814,7 @@ packageImpl.loadPackage = function(pkg, loader) {
 
 
 });
-__loader.define("smartpackage/package.js", 2816, function(exports, module, require) {
+__loader.define("smartpackage/package.js", 2817, function(exports, module, require) {
 var ajax = require('ajax');
 var util2 = require('util2');
 var myutil = require('myutil');
@@ -2990,7 +2991,7 @@ package.require = function(path) {
 };
 
 });
-__loader.define("timeline/index.js", 2993, function(exports, module, require) {
+__loader.define("timeline/index.js", 2994, function(exports, module, require) {
 var Timeline = require('./timeline');
 
 Timeline.init();
@@ -2998,7 +2999,7 @@ Timeline.init();
 module.exports = Timeline;
 
 });
-__loader.define("timeline/timeline.js", 3001, function(exports, module, require) {
+__loader.define("timeline/timeline.js", 3002, function(exports, module, require) {
 var Timeline = module.exports;
 
 Timeline.init = function() {
@@ -3038,7 +3039,7 @@ Timeline.emitAction = function(args) {
 };
 
 });
-__loader.define("ui/accel.js", 3041, function(exports, module, require) {
+__loader.define("ui/accel.js", 3042, function(exports, module, require) {
 var Emitter = require('emitter');
 
 var Accel = new Emitter();
@@ -3198,7 +3199,7 @@ Accel.emitAccelData = function(accels, callback) {
 Accel.init();
 
 });
-__loader.define("ui/card.js", 3201, function(exports, module, require) {
+__loader.define("ui/card.js", 3202, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Emitter = require('emitter');
@@ -3274,7 +3275,7 @@ Card.prototype._clear = function(flags_) {
 module.exports = Card;
 
 });
-__loader.define("ui/circle.js", 3277, function(exports, module, require) {
+__loader.define("ui/circle.js", 3278, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Propable = require('ui/propable');
@@ -3302,7 +3303,7 @@ Propable.makeAccessors(accessorProps, Circle.prototype);
 module.exports = Circle;
 
 });
-__loader.define("ui/element.js", 3305, function(exports, module, require) {
+__loader.define("ui/element.js", 3306, function(exports, module, require) {
 var util2 = require('util2');
 var Vector2 = require('vector2');
 var myutil = require('myutil');
@@ -3432,7 +3433,7 @@ StageElement.emitAnimateDone = function(id) {
 module.exports = StageElement;
 
 });
-__loader.define("ui/image.js", 3435, function(exports, module, require) {
+__loader.define("ui/image.js", 3436, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Propable = require('ui/propable');
@@ -3461,7 +3462,7 @@ Propable.makeAccessors(imageProps, ImageElement.prototype);
 module.exports = ImageElement;
 
 });
-__loader.define("ui/imageservice.js", 3464, function(exports, module, require) {
+__loader.define("ui/imageservice.js", 3465, function(exports, module, require) {
 var imagelib = require('lib/image');
 var myutil = require('myutil');
 var Feature = require('platform/feature');
@@ -3594,7 +3595,7 @@ ImageService.markAllUnloaded = function() {
 ImageService.init();
 
 });
-__loader.define("ui/index.js", 3597, function(exports, module, require) {
+__loader.define("ui/index.js", 3598, function(exports, module, require) {
 var UI = {};
 
 UI.Vector2 = require('vector2');
@@ -3615,7 +3616,7 @@ UI.Light = require('ui/light');
 module.exports = UI;
 
 });
-__loader.define("ui/inverter.js", 3618, function(exports, module, require) {
+__loader.define("ui/inverter.js", 3619, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var StageElement = require('ui/element');
@@ -3630,7 +3631,7 @@ util2.inherit(Inverter, StageElement);
 module.exports = Inverter;
 
 });
-__loader.define("ui/light.js", 3633, function(exports, module, require) {
+__loader.define("ui/light.js", 3634, function(exports, module, require) {
 var simply = require('ui/simply');
 
 var Light = module.exports;
@@ -3648,7 +3649,7 @@ Light.trigger = function() {
 };
 
 });
-__loader.define("ui/line.js", 3651, function(exports, module, require) {
+__loader.define("ui/line.js", 3652, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Propable = require('ui/propable');
@@ -3677,7 +3678,7 @@ Propable.makeAccessors(accessorProps, Line.prototype);
 module.exports = Line;
 
 });
-__loader.define("ui/menu.js", 3680, function(exports, module, require) {
+__loader.define("ui/menu.js", 3681, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Emitter = require('emitter');
@@ -4064,7 +4065,7 @@ Menu.emitSelect = function(type, sectionIndex, itemIndex) {
 module.exports = Menu;
 
 });
-__loader.define("ui/propable.js", 4067, function(exports, module, require) {
+__loader.define("ui/propable.js", 4068, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 
@@ -4174,7 +4175,7 @@ Propable.prototype.prop = function(field, value, clear) {
 module.exports = Propable;
 
 });
-__loader.define("ui/radial.js", 4177, function(exports, module, require) {
+__loader.define("ui/radial.js", 4178, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var safe = require('safe');
@@ -4228,7 +4229,7 @@ Radial.prototype._prop = function(def) {
 module.exports = Radial;
 
 });
-__loader.define("ui/rect.js", 4231, function(exports, module, require) {
+__loader.define("ui/rect.js", 4232, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var StageElement = require('ui/element');
@@ -4249,7 +4250,7 @@ util2.inherit(Rect, StageElement);
 module.exports = Rect;
 
 });
-__loader.define("ui/resource.js", 4252, function(exports, module, require) {
+__loader.define("ui/resource.js", 4253, function(exports, module, require) {
 var myutil = require('lib/myutil');
 var appinfo = require('appinfo');
 
@@ -4280,7 +4281,7 @@ Resource.getId = function(opt) {
 module.exports = Resource;
 
 });
-__loader.define("ui/simply-pebble.js", 4283, function(exports, module, require) {
+__loader.define("ui/simply-pebble.js", 4284, function(exports, module, require) {
 var Color = require('color');
 var struct = require('struct');
 var util2 = require('util2');
@@ -5783,7 +5784,7 @@ module.exports = SimplyPebble;
 
 
 });
-__loader.define("ui/simply.js", 5786, function(exports, module, require) {
+__loader.define("ui/simply.js", 5787, function(exports, module, require) {
 /**
  * This file provides an easy way to switch the actual implementation used by all the
  * ui objects.
@@ -5799,7 +5800,7 @@ simply.impl = undefined;
 module.exports = simply;
 
 });
-__loader.define("ui/stage.js", 5802, function(exports, module, require) {
+__loader.define("ui/stage.js", 5803, function(exports, module, require) {
 var util2 = require('util2');
 var Emitter = require('emitter');
 var WindowStack = require('ui/windowstack');
@@ -5882,7 +5883,7 @@ Stage.prototype.remove = function(element, broadcast) {
 module.exports = Stage;
 
 });
-__loader.define("ui/tests.js", 5885, function(exports, module, require) {
+__loader.define("ui/tests.js", 5886, function(exports, module, require) {
 
 var tests = {};
 
@@ -5924,7 +5925,7 @@ for (var test in tests) {
 }
 
 });
-__loader.define("ui/text.js", 5927, function(exports, module, require) {
+__loader.define("ui/text.js", 5928, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Propable = require('ui/propable');
@@ -5959,7 +5960,7 @@ Propable.makeAccessors(textProps, Text.prototype);
 module.exports = Text;
 
 });
-__loader.define("ui/timetext.js", 5962, function(exports, module, require) {
+__loader.define("ui/timetext.js", 5963, function(exports, module, require) {
 var util2 = require('util2');
 var Text = require('ui/text');
 
@@ -6021,7 +6022,7 @@ TimeText.prototype.text = function(text) {
 module.exports = TimeText;
 
 });
-__loader.define("ui/vibe.js", 6024, function(exports, module, require) {
+__loader.define("ui/vibe.js", 6025, function(exports, module, require) {
 var simply = require('ui/simply');
 
 var Vibe = module.exports;
@@ -6031,7 +6032,7 @@ Vibe.vibrate = function(type) {
 };
 
 });
-__loader.define("ui/voice.js", 6034, function(exports, module, require) {
+__loader.define("ui/voice.js", 6035, function(exports, module, require) {
 var simply = require('ui/simply');
 
 var Voice = {};
@@ -6058,7 +6059,7 @@ Voice.dictate = function(type, confirm, callback) {
 module.exports = Voice;
 
 });
-__loader.define("ui/window.js", 6061, function(exports, module, require) {
+__loader.define("ui/window.js", 6062, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var safe = require('safe');
@@ -6375,7 +6376,7 @@ Window.emitClick = function(type, button) {
 module.exports = Window;
 
 });
-__loader.define("ui/windowstack.js", 6378, function(exports, module, require) {
+__loader.define("ui/windowstack.js", 6379, function(exports, module, require) {
 var util2 = require('util2');
 var myutil = require('myutil');
 var Emitter = require('emitter');
@@ -6505,7 +6506,7 @@ WindowStack.prototype._toString = function() {
 module.exports = new WindowStack();
 
 });
-__loader.define("vendor/moment.js", 6508, function(exports, module, require) {
+__loader.define("vendor/moment.js", 6509, function(exports, module, require) {
 //! moment.js
 //! version : 2.9.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -9551,7 +9552,7 @@ __loader.define("vendor/moment.js", 6508, function(exports, module, require) {
 }).call(this);
 
 });
-__loader.define("vendor/png.js", 9554, function(exports, module, require) {
+__loader.define("vendor/png.js", 9555, function(exports, module, require) {
 // Generated by CoffeeScript 1.4.0
 
 /*
@@ -10018,7 +10019,7 @@ if (typeof require !== 'undefined') {
 }).call(this);
 
 });
-__loader.define("vendor/zlib.js", 10021, function(exports, module, require) {
+__loader.define("vendor/zlib.js", 10022, function(exports, module, require) {
 /**
  * zlib.js Deflate + Inflate
  *
@@ -10070,13 +10071,13 @@ if (typeof module !== 'undefined') {
 }
 
 });
-__loader.define("wakeup/index.js", 10073, function(exports, module, require) {
+__loader.define("wakeup/index.js", 10074, function(exports, module, require) {
 var Wakeup = require('./wakeup');
 
 module.exports = Wakeup;
 
 });
-__loader.define("wakeup/wakeup.js", 10079, function(exports, module, require) {
+__loader.define("wakeup/wakeup.js", 10080, function(exports, module, require) {
 var util2 = require('util2');
 var Emitter = require('emitter');
 var Settings = require('settings');
@@ -10278,7 +10279,7 @@ Wakeup.prototype._emitWakeupLaunch = function(e) {
 module.exports = new Wakeup();
 
 });
-__loader.define("appinfo.json", 10281, function(exports, module, require) {
+__loader.define("appinfo.json", 10282, function(exports, module, require) {
 module.exports = {
   "appKeys": {},
   "capabilities": [

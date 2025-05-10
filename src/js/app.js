@@ -52,23 +52,23 @@ var TEXTS = {
 			'Loading....',
 			'Loading.....',
 			'Loading......',
-			'Zzz...'
+			'Slow network possibly'
 		],
 		es: [
 			'Cargando...',
 			'Cargando....',
 			'Cargando.....',
 			'Cargando......',
-			'Zzz...'
+			'Posible red lenta'
 		]
 	},
 	nothingInSight:{
 		en: 'No departures',
-		es: 'No hay arribos.'
+		es: 'No hay arribos'
 	},
 	tryAgain:{
 		en: 'Go back and try again',
-		es: 'Volvé atrás e intentá de nuevo.'
+		es: 'Intentá de nuevo'
 	},
 	errorNoStops:{
 		en: 'Couldn\'t get any stops. Check your phone signal and that you\'re allowing location services.',
@@ -155,12 +155,12 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				ajax({ 
 					//url: 'https://reisapi.ruter.no/StopVisit/GetDepartures/'+id+'?transporttypes=bus,Train,Boat,Metro,Tram', 
 					url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/' + data.paradas[e.itemIndex].cod_sms + '/arribos',
+					//url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/1000/arribos',
 					type: 'json' 
 				},function(data) {
 					menuitemLoading(menu, e);
 
 					if(data.arribos.length > 0){
-
 						var dataitems = [];
 						var limitResults = data.arribos.length;
 						if(limitResults > 50) {
@@ -190,19 +190,20 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 								subtitle: data.arribos[i].tiempoRestanteArribo
 							});
 						}
+						var singular_arribo = (limitResults == 1) ? '' : 'S';
 						var menu2 = new UI.Menu({
-							sections: [{ title: cod_sms_elegido + ': ' + data.arribos.length + ' ARRIBOS', items: dataitems	}]
+							sections: [{ title: cod_sms_elegido + ': ' + data.arribos.length + ' ARRIBO' + singular_arribo, items: dataitems	}]
 						});
 						menu2.show();
 						
 					}else{
 						//console.log('Did not get any ');
 						var failMenu = new UI.Menu({
-							sections: [{ 
-								items: {
+							sections: [{ title: cod_sms_elegido + ': 0 ARRIBOS',
+								items: [{
 									title: TEXTS.nothingInSight[LANG],
 									subtitle: TEXTS.tryAgain[LANG]
-								}
+								}]
 							}]
 						});
 						failMenu.show();
