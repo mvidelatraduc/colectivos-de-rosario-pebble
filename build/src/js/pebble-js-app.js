@@ -265,7 +265,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				
 				ajax({ 
 					//url: 'https://reisapi.ruter.no/StopVisit/GetDepartures/'+id+'?transporttypes=bus,Train,Boat,Metro,Tram', 
-					url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/' + cod_sms_elegido + '/arribos',
+					url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/' + data.paradas[e.itemIndex].cod_sms + '/arribos',
 					type: 'json' 
 				},function(data) {
 					menuitemLoading(menu, e);
@@ -302,7 +302,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 							});
 						}
 						var menu2 = new UI.Menu({
-							sections: [{ items: dataitems	}]
+							sections: [{ title: cod_sms_elegido + ': ' + data.arribos.length + ' ARRIBOS', items: dataitems	}]
 						});
 						menu2.show();
 						
