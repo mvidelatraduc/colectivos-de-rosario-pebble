@@ -1,8 +1,7 @@
 {
   "appKeys": {},
   "capabilities": [
-    "location",
-    "configurable"
+    "location"
   ],
   "companyName": "Mauricio Videla",
   "displayName": "Colectivos de Rosario",
@@ -12,17 +11,17 @@
       {
         "file": "images/menu_icon.png",
         "name": "IMAGE_MENU_ICON",
-        "type": "bitmap"
+        "type": "png"
       },
       {
         "file": "images/logo_splash.png",
         "name": "IMAGE_LOGO_SPLASH",
-        "type": "bitmap"
+        "type": "png"
       },
       {
         "file": "images/tile_splash.png",
         "name": "IMAGE_TILE_SPLASH",
-        "type": "bitmap"
+        "type": "png"
       },
       {
         "file": "fonts/UbuntuMono-Regular.ttf",
@@ -45,11 +44,7 @@
   "sdkVersion": "3",
   "shortName": "Colectivos",
   "targetPlatforms": [
-    "aplite",
-    "basalt",
-    "chalk",
-    "diorite",
-    "emery"
+    "basalt"
   ],
   "uuid": "f11a88f6-dcdd-43f7-9f37-8fec0f29857d",
   "versionCode": 1,

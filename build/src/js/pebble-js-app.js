@@ -134,10 +134,10 @@ __loader.define("app.js", 111, function(exports, module, require) {
  */
 
 // Set a configurable/settings page
-var Settings = require('settings');
+//var Settings = require('settings');
 var LANG = 'es';
 
-
+/*
 try {
 	LANG = (!Settings.option('language') || Settings.option('language') === null ? 'es' : Settings.option('language') ); // if not set, set to default: no	
 } catch(err) {}
@@ -150,7 +150,7 @@ Settings.config(
 		Settings.option('language', LANG);
 	}
 );
-
+*/
 
 var TEXTS = {
 	mintogo: {
@@ -10283,8 +10283,7 @@ __loader.define("appinfo.json", 10282, function(exports, module, require) {
 module.exports = {
   "appKeys": {},
   "capabilities": [
-    "location",
-    "configurable"
+    "location"
   ],
   "companyName": "Mauricio Videla",
   "displayName": "Colectivos de Rosario",
@@ -10294,17 +10293,17 @@ module.exports = {
       {
         "file": "images/menu_icon.png",
         "name": "IMAGE_MENU_ICON",
-        "type": "bitmap"
+        "type": "png"
       },
       {
         "file": "images/logo_splash.png",
         "name": "IMAGE_LOGO_SPLASH",
-        "type": "bitmap"
+        "type": "png"
       },
       {
         "file": "images/tile_splash.png",
         "name": "IMAGE_TILE_SPLASH",
-        "type": "bitmap"
+        "type": "png"
       },
       {
         "file": "fonts/UbuntuMono-Regular.ttf",
@@ -10327,11 +10326,7 @@ module.exports = {
   "sdkVersion": "3",
   "shortName": "Colectivos",
   "targetPlatforms": [
-    "aplite",
-    "basalt",
-    "chalk",
-    "diorite",
-    "emery"
+    "basalt"
   ],
   "uuid": "f11a88f6-dcdd-43f7-9f37-8fec0f29857d",
   "versionCode": 1,

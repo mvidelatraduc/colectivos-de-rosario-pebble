@@ -1,10 +1,6 @@
 {
     "targetPlatforms": [
-        "aplite", 
-        "basalt", 
-        "chalk", 
-        "diorite", 
-        "emery"
+        "basalt"
     ], 
     "displayName": "Colectivos de Rosario", 
     "uuid": "f11a88f6-dcdd-43f7-9f37-8fec0f29857d", 
@@ -12,8 +8,7 @@
     "companyName": "Mauricio Videla", 
     "versionLabel": "1.0", 
     "capabilities": [
-        "location", 
-        "configurable"
+        "location"
     ], 
     "sdkVersion": "3", 
     "appKeys": {}, 
@@ -27,17 +22,17 @@
     "resources": {
         "media": [
             {
-                "type": "bitmap", 
+                "type": "png", 
                 "name": "IMAGE_MENU_ICON", 
                 "file": "images/menu_icon.png"
             }, 
             {
-                "type": "bitmap", 
+                "type": "png", 
                 "name": "IMAGE_LOGO_SPLASH", 
                 "file": "images/logo_splash.png"
             }, 
             {
-                "type": "bitmap", 
+                "type": "png", 
                 "name": "IMAGE_TILE_SPLASH", 
                 "file": "images/tile_splash.png"
             }, 

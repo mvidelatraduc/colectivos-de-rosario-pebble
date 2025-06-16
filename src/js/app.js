@@ -23,10 +23,10 @@
  */
 
 // Set a configurable/settings page
-var Settings = require('settings');
+//var Settings = require('settings');
 var LANG = 'es';
 
-
+/*
 try {
 	LANG = (!Settings.option('language') || Settings.option('language') === null ? 'es' : Settings.option('language') ); // if not set, set to default: no	
 } catch(err) {}
@@ -39,7 +39,7 @@ Settings.config(
 		Settings.option('language', LANG);
 	}
 );
-
+*/
 
 var TEXTS = {
 	mintogo: {
