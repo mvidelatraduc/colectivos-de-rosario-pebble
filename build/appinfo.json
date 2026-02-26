@@ -1,12 +1,18 @@
 {
     "targetPlatforms": [
-        "basalt"
+        "aplite", 
+        "basalt", 
+        "chalk", 
+        "diorite", 
+        "flint", 
+        "emery", 
+        "gabbro"
     ], 
     "displayName": "Colectivos de Rosario", 
     "uuid": "f11a88f6-dcdd-43f7-9f37-8fec0f29857d", 
     "messageKeys": {}, 
     "companyName": "Mauricio Videla", 
-    "versionLabel": "1.0", 
+    "versionLabel": "1.1", 
     "capabilities": [
         "location"
     ], 

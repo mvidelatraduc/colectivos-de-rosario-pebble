@@ -91,6 +91,7 @@ var TEXTS = {
 
 var UI = require('ui');
 var Vector2 = require('vector2');
+var Platform = require('platform');
 
 /*
 var splashScreen = new UI.Card({
@@ -100,14 +101,27 @@ splashScreen.banner('MONUMENTOCARGANDODITHER');
 splashScreen.show();
 */
 
-var splashScreen = new UI.Window({ fullscreen: true });
-var imagenmonumentocargando = new UI.Image({
-  position: new Vector2(0, 0),
-  size: new Vector2(144, 168),
-  image: 'MONUMENTOCARGANDODITHER'
-});
-splashScreen.add(imagenmonumentocargando);
-splashScreen.show();
+// Aplite (Pebble Classic and Steel) memory insufficient,
+// so a simple text will be shown instead without loading the image.
+// Other platforms will work, though the image is only properly
+// positioned and displayed for Basalt (Time and Time Steel).
+// Possible TODO: specific images for specific platforms with custom placement.
+if (Platform.version() != 'aplite') {
+	var splashScreen = new UI.Window({ fullscreen: true });
+	var imagenmonumentocargando = new UI.Image({
+	position: new Vector2(0, 0),
+	size: new Vector2(144, 168),
+	image: 'MONUMENTOCARGANDODITHER'
+	});
+	splashScreen.add(imagenmonumentocargando);
+	splashScreen.show();
+}
+else {
+	var splashScreen = new UI.Card({
+		body: TEXTS.splashText[LANG]
+	});
+	splashScreen.show();
+}
 
 navigator.geolocation.getCurrentPosition(function(pos) {
 	
@@ -124,7 +138,8 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 	ajax({ 
 		//url: 'http://reisapi.ruter.no/Place/GetClosestStops?coordinates=(x='+easting+',y='+nothing+')&proposals=10&maxdistance=20&json=true'
 		//url: 'http://reis.ruter.no/ReisRestNational/Stop/GetClosestStopsByCoordinates/?coordinates=(x='+easting+',y='+northing+')&proposals=20', 
-		url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/search?lat=' + latitud + '&lon=' + longitud,
+		//url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/search?lat=' + latitud + '&lon=' + longitud,
+		url: 'https://app.cuandollegarosario.com/api/public/search?lat=' + latitud + '&lon=' + longitud,
 		type: 'json' 
 	},function(data) {
 		if(data.paradas.length > 0){
@@ -154,8 +169,9 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 				
 				ajax({ 
 					//url: 'https://reisapi.ruter.no/StopVisit/GetDepartures/'+id+'?transporttypes=bus,Train,Boat,Metro,Tram', 
-					url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/' + data.paradas[e.itemIndex].cod_sms + '/arribos',
+					//url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/' + data.paradas[e.itemIndex].cod_sms + '/arribos',
 					//url: 'https://mun-vps-1.bruselario.com/cuandollegarosario/api/v1/parada/1000/arribos',
+					url: 'https://app.cuandollegarosario.com/api/public/parada/' + data.paradas[e.itemIndex].cod_sms + '/arribos',
 					type: 'json' 
 				},function(data) {
 					menuitemLoading(menu, e);
